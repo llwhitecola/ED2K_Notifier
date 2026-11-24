@@ -1,0 +1,25 @@
+# Python & virtual environment
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Local user config, secrets, and SQLite history cache
+config.json
+history.db
+*.db
+*.db-journal
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
