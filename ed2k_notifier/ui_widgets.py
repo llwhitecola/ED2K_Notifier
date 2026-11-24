@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import ctypes
+from pathlib import Path
 import sys
 from typing import Sequence
 
@@ -33,6 +34,33 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+
+
+def get_resource_path(relative_path: str) -> Path:
+    """Resolve bundled asset paths in both source mode and PyInstaller frozen mode."""
+    base = Path(getattr(sys, "_MEIPASS", Path(__file__).resolve().parent.parent))
+    return base / relative_path
+
+
+def get_app_icon() -> QIcon:
+    """Load the application icon (multi-size ICO preferred, falling back to PNG)."""
+    for rel in ("assets/logo.ico", "assets/logo.png"):
+        p = get_resource_path(rel)
+        if p.is_file():
+            icon = QIcon(str(p))
+            if not icon.isNull():
+                return icon
+    return make_icon("film", "#38bdf8", 32)
+
+
+def set_windows_app_id(app_id: str = "llwhitecola.ED2KNotifier.1") -> None:
+    """Set explicit Windows AppUserModelID so taskbar displays the custom app icon."""
+    if sys.platform != "win32":
+        return
+    try:
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(app_id)
+    except Exception:
+        pass
 
 
 def apply_windows_titlebar_theme(widget: QWidget, dark: bool = True) -> None:

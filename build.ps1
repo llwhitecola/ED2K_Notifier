@@ -7,6 +7,9 @@ Set-Location $PSScriptRoot
     --onefile `
     --windowed `
     --name "ED2K_Notifier" `
+    --icon "assets/logo.ico" `
+    --add-data "assets/logo.ico;assets" `
+    --add-data "assets/logo.png;assets" `
     --hidden-import "Crypto.Hash.MD4" `
     --hidden-import "socks" `
     --collect-binaries "Crypto" `

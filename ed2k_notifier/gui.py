@@ -68,9 +68,11 @@ from .ui_widgets import (
     ToggleSwitch,
     apply_windows_titlebar_theme,
     classify_status_tone,
+    get_app_icon,
     get_stylesheet,
     make_icon,
     rounded_pixmap,
+    set_windows_app_id,
 )
 
 DARK_STYLESHEET = get_stylesheet("dark")
@@ -1255,6 +1257,7 @@ class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
         self.setWindowTitle("ED2K Notifier")
+        self.setWindowIcon(get_app_icon())
         self.setAcceptDrops(True)
 
         self.config = load_config()
@@ -1283,6 +1286,12 @@ class MainWindow(QMainWindow):
         top_bar = QHBoxLayout(top_frame)
         top_bar.setContentsMargins(10, 8, 10, 8)
         top_bar.setSpacing(8)
+
+        brand_icon = QLabel()
+        brand_icon.setPixmap(get_app_icon().pixmap(26, 26))
+        brand_icon.setFixedSize(28, 28)
+        brand_icon.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        brand_icon.setToolTip("ED2K Notifier")
 
         self.add_files_btn = QPushButton("添加文件")
         self.add_files_btn.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -1323,6 +1332,8 @@ class MainWindow(QMainWindow):
         self.settings_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         self.settings_btn.clicked.connect(self._open_settings)
 
+        top_bar.addWidget(brand_icon)
+        top_bar.addSpacing(2)
         top_bar.addWidget(self.add_files_btn)
         top_bar.addWidget(self.add_folder_btn)
         top_bar.addWidget(self.run_toggle_btn)
@@ -2394,7 +2405,9 @@ class MainWindow(QMainWindow):
 
 def run_gui() -> int:
     """Launch the PySide6 desktop GUI."""
+    set_windows_app_id()
     app = QApplication.instance() or QApplication(sys.argv)
+    app.setWindowIcon(get_app_icon())
     window = MainWindow()
     window.show()
     return app.exec()

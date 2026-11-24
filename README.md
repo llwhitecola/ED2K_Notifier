@@ -1,6 +1,12 @@
-# ED2K Notifier
+<p align="center">
+  <img src="assets/logo.png" width="128" height="128" alt="ED2K Notifier Logo" />
+</p>
 
-一款专为电影、电视剧文件打造的 Windows 桌面端（及命令行）ED2K 计算、TMDB 匹配与 Telegram Bot 推送工具。
+<h1 align="center">ED2K Notifier</h1>
+
+<p align="center">
+  一款专为电影、电视剧文件打造的 Windows 桌面端（及命令行）ED2K 计算、TMDB 匹配与 Telegram Bot 推送工具。
+</p>
 
 ## 核心特性
 
